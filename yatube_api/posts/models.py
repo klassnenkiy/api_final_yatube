@@ -74,5 +74,5 @@ class Follow(models.Model):
             models.CheckConstraint(
                 name='prevent_self_follow',
                 check=~models.Q(user=models.F('author'))
-            ),  # привет, ты мне такое вроде не советовал в 6 спринте.
-        )  # там ревьеюер другой был. но попытался сейчас это сделать. спасибо!
+            ),
+        )

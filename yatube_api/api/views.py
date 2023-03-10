@@ -1,8 +1,9 @@
 from posts.models import Group, Post
-from rest_framework import filters, mixins, permissions, viewsets
+from rest_framework import filters, permissions, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 
+from .mixins import CreateListViewSet
 from .permissions import AuthorOrReadOnlyPermissions
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
@@ -44,14 +45,6 @@ class CommentViewSet(viewsets.ModelViewSet):
             author=self.request.user,
             post=post
         )
-
-
-class CreateListViewSet(
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet
-):
-    pass
 
 
 class FollowViewSet(CreateListViewSet):
