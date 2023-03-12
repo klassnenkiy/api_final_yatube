@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from posts.models import Comment, Follow, Group, Post, User
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
@@ -56,8 +57,8 @@ class FollowSerializer(serializers.ModelSerializer):
             ),
         )
 
-    def validate(self, data):
-        if self.context['request'].user == data['following']:
+    def validate_following(self, data):
+        if self.context['request'].user.username == data.username:
             raise serializers.ValidationError(
                 'Нельзя подписаться на самого себя!')
         return data
